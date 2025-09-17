@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miravanisri - Software Developer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Dark theme custom styles */
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .dark-gradient {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25);
+        }
+        
+        .project-card {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -12px rgba(59, 130, 246, 0.3);
+        }
+        
+        .skill-tag {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .skill-tag:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px -8px rgba(59, 130, 246, 0.3);
+        }
+        
+        .nav-blur {
+            backdrop-filter: blur(20px);
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .animate-slide-up {
+            animation: slideUp 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(50px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        .category-card {
+            transition: all 0.4s ease;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 30px 60px -12px rgba(59, 130, 246, 0.4);
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+        }
+        
+        .glow-effect {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+        
+        .page-transition {
+            transition: all 0.5s ease-in-out;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .hero-text {
+                font-size: 2.5rem;
+            }
+            
+            .card-hover:hover {
+                transform: translateY(-4px) scale(1.01);
+            }
+            
+            .category-card:hover {
+                transform: translateY(-5px) scale(1.02);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+    
+    <!-- 
+    ============================================
+    📁 CONTENT DATA STRUCTURE & SETUP GUIDE
+    ============================================
+    
+    🔧 HOW TO UPDATE YOUR CONTENT:
+    
+    1. PERSONAL INFO: Update the portfolioData object below (lines 150-250)
+    2. IMAGES: Replace image paths in the portfolioData object
+    3. PROJECTS: Add/edit projects in the development and genai arrays
+    4. SKILLS: Update the skills arrays with your technologies
+    5. SOCIAL LINKS: Update the socialLinks object with your profiles
+    
+    📁 WHERE TO UPLOAD IMAGES:
+    Create these folders in your project:
+    
+    /assets/
+    ├── images/
+    │   ├── profile.jpg              # Your profile photo (400x400px recommended)
+    │   ├── hero-bg.jpg              # Hero background image (1920x1080px)
+    │   └── hero-illustration.svg    # Hero illustration (optional)
+    ├── projects/
+    │   ├── development/
+    │   │   ├── ecommerce.jpg        # Project screenshots (800x600px recommended)
+    │   │   ├── taskapp.jpg
+    │   │   └── dashboard.jpg
+    │   └── genai/
+    │       ├── ai-content.jpg
+    │       ├── chatbot.jpg
+    │       └── analyzer.jpg
+    ├── companies/
+    │   └── company-logo.png         # Company logos (200x200px recommended)
+    └── documents/
+        └── resume.pdf               # Your resume file
+    
+    🎨 IMAGE OPTIMIZATION TIPS:
+    - Use WebP format for better compression
+    - Optimize images before uploading (use tools like TinyPNG)
+    - Keep file sizes under 500KB for faster loading
+    - Use consistent aspect ratios for project images
+    
+    🔗 URL STRUCTURE:
+    - Home: yoursite.com/
+    - Development Projects: yoursite.com/#development
+    - GenAI Projects: yoursite.com/#genai
+    
+    -->
+    
+    <script>
+        // 👉 MAIN DATA STRUCTURE - UPDATE THIS WITH YOUR INFORMATION
+        const portfolioData = {
+            personal: {
+                name: "Miravanisri", // 👉 Replace with your actual name
+                title: "Software Developer", // 👉 Replace with your job title
+                tagline: "Turning vision into reality with full-stack development and AI expertise.", // 👉 Replace with your tagline
+                email: "miravanisri222@gmail.com", // 👉 Replace with your email
+                phone: "+91 8778736358", // 👉 Replace with your phone (optional)
+                location: "Bengaluru, India", // 👉 Replace with your location
+                resumeLink: "/Assets/documents/Miravanisri_Resume.pdf", // 👉 Upload your resume and update path
+                profileImage: "/Assets/images/profile.png", // 👉 Upload your profile photo
+                heroImage: "/assets/images/hero-illustration.svg", // 👉 Upload hero illustration
+                experience: "5 months", // 👉 Update your experience
+                aboutText: "I'm a passionate software developer with 5 months of professional experience, specializing in full-stack development and AI integration. I love creating scalable applications that solve real-world problems and provide exceptional user experiences. My journey in tech has been driven by curiosity and a desire to build innovative solutions that make a difference.", // 👉 Replace with your about text
+                shortBio: "Passionate developer creating innovative solutions" // 👉 Short bio for hero section
+            },
+            
+            skills: {
+                languages: ["JavaScript", "Python", "TypeScript", "Java"], // 👉 Add your programming languages
+                frontend: ["React", "TailwindCSS", "Redux", "Next.js"], // 👉 Add your frontend technologies
+                backend: ["Node.js", "Express", "REST APIs","Prisma ORM","Cloudfare Workers","Hono"], // 👉 Add your backend technologies
+                databases: ["MongoDB", "PostgreSQL", "MySQL"], // 👉 Add your databases
+                devops: ["Docker", "AWS","CI/CD"], // 👉 Add your tools
+                GenAI: ["Transformers", "LangChain", "LangGraph", "Fine-Tuning"], // 👉 Add your AI/ML technologies
+                AdvancedAIConcepts:["MCP", "Ollama", "Unsloth", "Mixture of Experts", "Vision Transformers", "Diffusion Models", "CLIP", "Deepseek", "Chain of Thought"]
+            },
+            
+            experience: {
+                company: "College of Contract Management", // 👉 Replace with your company name
+                position: "Software Developer", // 👉 Replace with your position
+                duration: "Jan 2025 - Jun 2025", // 👉 Replace with your employment dates
+                logo: "/Assets/images/ccm.png", // 👉 Upload company logo
+                description: "Working on cutting-edge web applications and AI solutions", // 👉 Brief job description
+                responsibilities: [ // 👉 Replace with your actual responsibilities
+                    "Developed and maintained full-stack web applications using React, Laravel, and MySQL",
+                    "Collaborated with cross-functional teams to deliver high-quality features on schedule",
+                    "Improved application performance by 40% through code optimization and best practices",
+                    "Built a Recruitment Module to manage candidate data and stages, streamlining HR workflows.",
+                    "Designed and implemented an Excel-based solution to simplify and automate customer data handling in the CRM product"
+                ]
+            },
+            
+            projects: {
+                development: [ // 👉 Add your development projects here
+                    {
+                        id: 1,
+                        title: "StudyNotion", // 👉 Project title
+                        description: "StudyNotion — A full-stack ed-tech platform built using the MERN stack (MongoDB, Express.js, React.js, Node.js) that enables users to create, consume, and rate educational content. It features secure authentication, interactive course creation and learning modules, and a scalable backend architecture. Designed to provide an engaging learning experience for students and a platform for instructors to showcase their expertise.", // 👉 Detailed project description
+                        shortDesc: "Full-stack ed-tech solution with payment integration", // 👉 Short description for cards
+                        tech: ["React.js", "Node.js", "MongoDB", "Express.js", "TailwindCSS"], // 👉 Technologies used
+                        github: "https://github.com/miravanisri/StudyNotion", // 👉 GitHub link
+                        live: "https://study-notion-azure-nine.vercel.app/", // 👉 Live demo link
+                        image: "/Assets//images/sd.png", // 👉 Upload project image
+                        featured: true // 👉 Set to true for featured projects
+                    },
+                    {
+                        id: 2,
+                        title: "Venamo_PaymentApp",
+                        description: "Venamo – A secure P2P payment app for real-time money transfers, balance tracking, and transaction history. Built with Next.js, Node.js, Prisma, and PostgreSQL.",
+                        shortDesc: "Fintech app for secure P2P payments and account tracking",
+                        tech: [
+  "Next.js (Frontend & Backend)",
+  "Node.js",
+  "Express.js",
+  "PostgreSQL",
+  "Prisma",
+  "Turborepo",
+  "Tailwind CSS",
+  "Recoil",
+  "Docker"
+],
+                        github: "https://github.com/miravanisri/Venamo_PaymentApp",
+                        live: "https://drive.google.com/file/d/12ZBqiwR3nqaoBe0WmkC-FiELZ1tx2PAQ/view",
+                        image: "/Assets/images/pay.png",
+                        featured: true
+                    },
+                    // {
+                    //     id: 3,
+                    //     title: "HelathCareManagement",
+                    //     description: "Comprehensive healthcare patient management app that allows patients to register, book, and manage appointments. Administrators can schedule, confirm, and cancel appointments, while patients receive SMS notifications for updates. Built with modern web technologies for a responsive and scalable experience.",
+                    //     shortDesc: "Healthcare patient management app with appointment booking, admin controls, and SMS notifications",
+                    //     tech: ["Next.js", "Appwrite","TypeScript","Tailwind CSS","ShadCN","Twilio","Sentry"],
+                    //     github: "https://github.com/miravanisri/HealthCareManagement",
+                    //     live: "https://health-care-management-delta.vercel.app/",
+                    //     image: "/assets/projects/development/dashboard.jpg",
+                    //     featured: false
+                    // },
+                    {
+                        id: 3,
+                        title: "Medium Blogging App",
+                        description: "Medium Blogging Website – A modern blogging platform that allows users to create, update, and manage posts with secure JWT authentication. Built with React frontend, Cloudflare Workers backend, PostgreSQL, and Prisma ORM, it emphasizes type-safe development and scalable serverless architecture.",
+                        shortDesc: "Medium Blogging Website – A scalable blogging platform with secure JWT authentication, React frontend, and serverless Cloudflare Workers backend.",
+                        tech:  [
+  "React",
+  "Cloudflare Workers",
+  "TypeScript",
+  "Zod",
+  "Prisma",
+  "PostgreSQL",
+  "JWT"
+],
+                        github: "https://github.com/miravanisri/MediumBloggingApp",
+                        live: "https://medium-blogging-app-six.vercel.app/signup",
+                        image: "/Assets/images/blog.png",
+                        featured: true
+                    }
+                ],
+                genai: [ // 👉 Add your GenAI projects here
+                    {
+                        id: 1,
+                        title: "Mini AI Bot",
+                        description: "Mini AI Bot - An AI-powered multi-chat assistant that answers questions in real time, summarizes live web content, and manages multiple conversations seamlessly. Built with Python, Streamlit, LangGraph, and LLMs, it demonstrates full-stack AI integration and interactive chat workflows.",
+                        shortDesc: "Mini AI Bot – AI-powered multi-chat assistant with real-time web summarization and interactive Python + LLM integration.",
+                        tech: [ "Python","Streamlit","LangGraph","LLMs","Tavily Search"],
+                        github: "https://github.com/miravanisri/Mini-AI-Bot",
+                        live: "https://drive.google.com/file/d/1CScfRHrS8lo9HaWqcGc1qcbuaIcItpB4/view",
+                        image: "/assets/projects/genai/ai-content.jpg",
+                        featured: false
+                    },
+                    {
+                        id: 2,
+                        title: "JobFitAI",
+                        description: "JobFit AI - A web app that evaluates resumes against job postings with ATS scoring and generates tailored cold emails. Built with Python, Streamlit, LangChain, Groq API, and vector embeddings, it provides actionable insights to improve applications and streamline job outreach.",
+                        shortDesc: "JobFit AI - Resume evaluation and cold email automation app with ATS scoring and AI-driven insights using Python & LangChain.",
+                        tech: [
+                            "Python","Streamlit","LangChain","Groq API","HuggingFace Embeddings","ChromaDB","PyPDF2","Python-docx","BeautifulSoup4","Rag"
+                        ],
+                        github: "https://github.com/miravanisri/JobFitAI",
+                        live: "https://drive.google.com/file/d/10BxfPtwIh1TaLgGwa3quD3uWHMDmEqsI/view",
+                        image: "/assets/projects/genai/chatbot.jpg",
+                        featured: false
+                    },
+                    {
+                        id: 3,
+                        title: "GenAI & Deep Learning Practice",
+                        description: "A collection of hands-on projects exploring Generative AI and Deep Learning techniques, including chatbot development, LLM orchestration, image classification, handwritten digit recognition, and GAN-based image generation — demonstrating strong foundations in building and fine-tuning AI models.",
+                        shortDesc: "JobFit AI - Resume evaluation and cold email automation app with ATS scoring and AI-driven insights using Python & LangChain.",
+                        tech: [ "Python","LangChain","HuggingFace","TensorFlow","PyTorch", "Streamlit","OpenAI/Groq APIs"],
+                        github: "https://github.com/miravanisri/GenAI",
+                        // live: "https://doc-analyzer.streamlit.app",
+                        image: "/assets/projects/genai/analyzer.jpg",
+                        featured: false
+                    }
+                    
+                ]
+            },
+            
+            socialLinks: { // 👉 Update with your actual profile links
+                github: "https://github.com/miravanisri",
+                linkedin: "https://www.linkedin.com/in/miravani-sri-0b4980222/",
+                codechef: "https://www.codechef.com/users/mivs",
+                leetcode: "https://leetcode.com/u/Miravani_Sri/"
+               
+                
+            },
+            
+            achievements: [ // 👉 Add your achievements (optional)
+                {
+                    title: "Hackathon Finalist",
+                    organization: "Smart India Hackathon",
+                    year: "2022"
+                },
+                {
+                    title: "5-star Badge in Java",
+                    organization: "HackerRank",
+                    year: "2022"
+                }
+
+            ]
+        };
+    </script>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-gray-900/90 nav-blur shadow-lg z-50 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                    <span id="nav-name">Miravanisri</span>
+                </div>
+                <div class="hidden md:flex space-x-6 lg:space-x-8">
+                    <a href="#home" class="text-gray-300 hover:text-blue-400 transition-colors font-medium">Home</a>
+                    <a href="#about" class="text-gray-300 hover:text-blue-400 transition-colors font-medium">About</a>
+                    <a href="#skills" class="text-gray-300 hover:text-blue-400 transition-colors font-medium">Skills</a>
+                    <a href="#experience" class="text-gray-300 hover:text-blue-400 transition-colors font-medium">Experience</a>
+                    <a href="#projects" class="text-gray-300 hover:text-blue-400 transition-colors font-medium">Projects</a>
+                    <a href="#contact" class="text-gray-300 hover:text-blue-400 transition-colors font-medium">Contact</a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button onclick="toggleMobileMenu()" class="text-gray-300 hover:text-blue-400 p-2">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <div class="flex flex-col space-y-3">
+                    <a href="#home" class="text-gray-300 hover:text-blue-400 transition-colors py-2 px-4 rounded">Home</a>
+                    <a href="#about" class="text-gray-300 hover:text-blue-400 transition-colors py-2 px-4 rounded">About</a>
+                    <a href="#skills" class="text-gray-300 hover:text-blue-400 transition-colors py-2 px-4 rounded">Skills</a>
+                    <a href="#experience" class="text-gray-300 hover:text-blue-400 transition-colors py-2 px-4 rounded">Experience</a>
+                    <a href="#projects" class="text-gray-300 hover:text-blue-400 transition-colors py-2 px-4 rounded">Projects</a>
+                    <a href="#contact" class="text-gray-300 hover:text-blue-400 transition-colors py-2 px-4 rounded">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div id="main-content">
+        
+        <!-- Home Page -->
+        <div id="home-page" class="page-content">
+            
+            <!-- Hero Section -->
+            <section id="home" class="min-h-screen flex items-center justify-center dark-gradient pt-20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                        <div class="animate-fade-in text-center lg:text-left">
+                            <div class="mb-6">
+                                <span class="bg-blue-500/20 text-blue-400 px-4 py-2 rounded-full text-sm font-medium border border-blue-500/30 inline-block">
+                                    👋 Welcome to my portfolio
+                                </span>
+                            </div>
+                            <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 hero-text">
+                                <span id="hero-name">Miravanisri</span>
+                            </h1>
+                            <h2 class="text-xl sm:text-2xl lg:text-3xl bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent font-semibold mb-4">
+                                <span id="hero-title">Software Developer</span>
+                            </h2>
+                            <p class="text-lg sm:text-xl text-gray-300 mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                                <span id="hero-tagline">Building innovative web applications and AI-powered solutions</span>
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                                <a href="" id="resume-btn" target="_blank" class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all text-center glow-effect">
+                                    <i class="fas fa-download mr-2"></i>View Resume
+                                </a>
+                                <a href="#contact" class="border-2 border-blue-500 text-blue-400 px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold hover:bg-blue-500 hover:text-white transition-all text-center">
+                                    <i class="fas fa-envelope mr-2"></i>Contact Me
+                                </a>
+                            </div>
+                        </div>
+                        <div class="flex justify-center lg:justify-end mt-8 lg:mt-0">
+                            <!-- 👉 Replace this with your hero illustration -->
+                            <div class="w-72 h-72 sm:w-80 sm:h-80 lg:w-100 lg:h-100 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-full flex items-center justify-center text-blue-400 text-6xl sm:text-7xl lg:text-8xl shadow-2xl border border-blue-500/30 backdrop-blur-sm">
+                                <i class="fas fa-code"></i>
+                                 <!-- <img src="/Assets/images/profile.png" alt="Developer" class="w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 object-cover rounded-full"> -->
+                            </div>
+                            <!-- Alternative: <img src="/assets/images/hero-illustration.svg" alt="Developer" class="w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 object-contain"> -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section id="about" class="py-16 sm:py-20 bg-gray-800/50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                        <div class="flex justify-center lg:justify-start order-2 lg:order-1">
+                            <!-- 👉 Replace with your profile photo -->
+                            <!-- <div class="w-70 h-70 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-2xl flex items-center justify-center text-blue-400 text-5xl sm:text-6xl shadow-xl border border-blue-500/30 backdrop-blur-sm">  -->
+                                 <!-- <i class="fas fa-user"></i>  -->
+                                   <!-- <img src="/Assets/Images/profile.png" alt="Profile" class="w-70 h-70 sm:w-72 sm:h-72 lg:w-96 lg:h-96 object-cover rounded-full" /> -->
+                               
+                            <!-- </div> -->
+
+                              <div class="w-72 h-72 sm:w-80 sm:h-80 lg:w-100 lg:h-100 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-full flex items-center justify-center text-blue-400 text-6xl sm:text-7xl lg:text-8xl shadow-2xl border border-blue-500/30 backdrop-blur-sm">
+                                
+                                 <img src="/Assets/images/profile.png" alt="Developer" class="w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 object-cover rounded-full">
+                            </div>
+
+                            <!-- <div class="w-70 h-70 sm:w-72 sm:h-72 lg:w-80 lg:h-80 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-2xl flex items-center justify-center shadow-xl border border-blue-500/30 backdrop-blur-sm overflow-hidden">
+  <img src="/Assets/Images/profile.png" alt="Profile" class="w-full h-full object-cover" />
+</div> -->
+
+                            
+                        </div>
+                        <div class="order-1 lg:order-2 text-center lg:text-left">
+                            <h2 class="text-3xl sm:text-4xl font-bold mb-6 text-white">About Me</h2>
+                            <p class="text-base sm:text-lg text-gray-300 leading-relaxed mb-8" id="about-text">
+                                I'm a passionate software developer with 5 months of professional experience, specializing in full-stack development and AI integration.
+                            </p>
+                            <div class="grid grid-cols-2 gap-4 sm:gap-6 max-w-md mx-auto lg:mx-0">
+                                <div class="bg-gray-700/50 p-4 sm:p-6 rounded-lg border border-gray-600 backdrop-blur-sm text-center">
+                                    <div class="text-2xl sm:text-3xl font-bold text-blue-400 mb-2" id="experience-count">5</div>
+                                    <div class="text-sm sm:text-base text-gray-300">Months Experience</div>
+                                </div>
+                                <div class="bg-gray-700/50 p-4 sm:p-6 rounded-lg border border-gray-600 backdrop-blur-sm text-center">
+                                    <div class="text-2xl sm:text-3xl font-bold text-purple-400 mb-2">5+</div>
+                                    <div class="text-sm sm:text-base text-gray-300">Projects Completed</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section id="skills" class="py-16 sm:py-20 bg-gray-900">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 sm:mb-16 text-white">Skills & Technologies</h2>
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                        
+                        <!-- Languages -->
+                        <div class="bg-gray-800/50 p-6 sm:p-8 rounded-xl shadow-lg card-hover border border-gray-700 backdrop-blur-sm">
+                            <div class="flex items-center mb-6">
+                                <i class="fas fa-code text-2xl sm:text-3xl text-blue-400 mr-4"></i>
+                                <h3 class="text-lg sm:text-xl font-semibold text-white">Languages</h3>
+                            </div>
+                            <div class="flex flex-wrap gap-2 sm:gap-3" id="languages-container">
+                                <!-- Skills will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Frontend -->
+                        <div class="bg-gray-800/50 p-6 sm:p-8 rounded-xl shadow-lg card-hover border border-gray-700 backdrop-blur-sm">
+                            <div class="flex items-center mb-6">
+                                <i class="fas fa-palette text-2xl sm:text-3xl text-purple-400 mr-4"></i>
+                                <h3 class="text-lg sm:text-xl font-semibold text-white">Frontend</h3>
+                            </div>
+                            <div class="flex flex-wrap gap-2 sm:gap-3" id="frontend-container">
+                                <!-- Skills will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Backend -->
+                        <div class="bg-gray-800/50 p-6 sm:p-8 rounded-xl shadow-lg card-hover border border-gray-700 backdrop-blur-sm">
+                            <div class="flex items-center mb-6">
+                                <i class="fas fa-server text-2xl sm:text-3xl text-green-400 mr-4"></i>
+                                <h3 class="text-lg sm:text-xl font-semibold text-white">Backend</h3>
+                            </div>
+                            <div class="flex flex-wrap gap-2 sm:gap-3" id="backend-container">
+                                <!-- Skills will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Databases -->
+                        <div class="bg-gray-800/50 p-6 sm:p-8 rounded-xl shadow-lg card-hover border border-gray-700 backdrop-blur-sm">
+                            <div class="flex items-center mb-6">
+                                <i class="fas fa-database text-2xl sm:text-3xl text-indigo-400 mr-4"></i>
+                                <h3 class="text-lg sm:text-xl font-semibold text-white">Databases</h3>
+                            </div>
+                            <div class="flex flex-wrap gap-2 sm:gap-3" id="databases-container">
+                                <!-- Skills will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Tools -->
+                        <div class="bg-gray-800/50 p-6 sm:p-8 rounded-xl shadow-lg card-hover border border-gray-700 backdrop-blur-sm">
+                            <div class="flex items-center mb-6">
+                                <i class="fas fa-tools text-2xl sm:text-3xl text-orange-400 mr-4"></i>
+                                <h3 class="text-lg sm:text-xl font-semibold text-white">Devops</h3>
+                            </div>
+                            <div class="flex flex-wrap gap-2 sm:gap-3" id="devops-container">
+                                <!-- Skills will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- AI/ML -->
+                        <div class="bg-gray-800/50 p-6 sm:p-8 rounded-xl shadow-lg card-hover border border-gray-700 backdrop-blur-sm">
+                            <div class="flex items-center mb-6">
+                                <i class="fas fa-brain text-2xl sm:text-3xl text-pink-400 mr-4"></i>
+                                <h3 class="text-lg sm:text-xl font-semibold text-white">GenAI</h3>
+                            </div>
+                            <div class="flex flex-wrap gap-2 sm:gap-3" id="genai-container">
+                                <!-- Skills will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        <div class="bg-gray-800/50 p-6 sm:p-8 rounded-xl shadow-lg card-hover border border-gray-700 backdrop-blur-sm">
+                            <div class="flex items-center mb-6">
+                                <i class="fas fa-brain text-2xl sm:text-3xl text-pink-400 mr-4"></i>
+                                <h3 class="text-lg sm:text-xl font-semibold text-white">Advanced AI Concepts</h3>
+                            </div>
+                            <div class="flex flex-wrap gap-2 sm:gap-3" id="ai-container">
+                                <!-- Skills will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Experience Section -->
+            <section id="experience" class="py-16 sm:py-20 bg-gray-800/50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 sm:mb-16 text-white">Work Experience</h2>
+                    <div class="max-w-4xl mx-auto">
+                        <div class="bg-gray-800/50 p-6 sm:p-8 rounded-2xl shadow-xl border border-gray-700 backdrop-blur-sm card-hover">
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
+                                <div class="flex items-center mb-4 sm:mb-0">
+                                    <!-- 👉 Replace with company logo -->
+                                    <!-- <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-lg flex items-center justify-center text-blue-400 text-xl sm:text-2xl mr-4 border border-blue-500/30 flex-shrink-0">
+                                        <i class="fas fa-building"></i>
+                                    </div> -->
+                                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-lg flex items-center justify-center mr-4 border border-blue-500/30 flex-shrink-0">
+  <img src="/Assets/images/ccm.png" alt="Company Logo" class="w-8 h-8 sm:w-10 sm:h-10 object-contain" />
+</div>
+
+
+
+                                    <div>
+                                        <h3 class="text-xl sm:text-2xl font-semibold text-white" id="job-position">Software Developer</h3>
+                                        <p class="text-base sm:text-lg text-blue-400 font-medium" id="company-name">Tech Company Name</p>
+                                    </div>
+                                </div>
+                                <div class="text-sm sm:text-base text-gray-300" id="job-duration">
+                                    July 2024 - Present
+                                </div>
+                            </div>
+                            <ul class="space-y-3 sm:space-y-4 text-sm sm:text-base text-gray-300" id="responsibilities-list">
+                                <!-- Responsibilities will be populated by JavaScript -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Overview Section -->
+            <section id="projects" class="py-16 sm:py-20 bg-gray-900">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 sm:mb-16 text-white">My Projects</h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto">
+                        
+                        <!-- Development Projects Card -->
+                        <div onclick="navigateToProjects('development')" class="category-card text-white p-8 sm:p-12 rounded-2xl cursor-pointer shadow-xl border border-blue-500/30 backdrop-blur-sm">
+                            <div class="text-center">
+                                <i class="fas fa-laptop-code text-5xl sm:text-6xl mb-6 text-blue-400"></i>
+                                <h3 class="text-2xl sm:text-3xl font-bold mb-4">Development Projects</h3>
+                                <p class="text-base sm:text-lg opacity-90 mb-6">Full-stack web applications and modern development solutions</p>
+                                <div class="inline-flex items-center text-base sm:text-lg font-semibold text-blue-400">
+                                    View Projects <i class="fas fa-arrow-right ml-2"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- GenAI Projects Card -->
+                        <div onclick="navigateToProjects('genai')" class="category-card text-white p-8 sm:p-12 rounded-2xl cursor-pointer shadow-xl border border-purple-500/30 backdrop-blur-sm">
+                            <div class="text-center">
+                                <i class="fas fa-robot text-5xl sm:text-6xl mb-6 text-purple-400"></i>
+                                <h3 class="text-2xl sm:text-3xl font-bold mb-4">GenAI Projects</h3>
+                                <p class="text-base sm:text-lg opacity-90 mb-6">AI-powered applications, chatbots, and Deep learning solutions</p>
+                                <div class="inline-flex items-center text-base sm:text-lg font-semibold text-purple-400">
+                                    View Projects <i class="fas fa-arrow-right ml-2"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Coding Profiles Section -->
+            <section class="py-16 sm:py-20 bg-gray-800/50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 sm:mb-16 text-white">Coding Profiles</h2>
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 max-w-4xl mx-auto">
+                        
+                        <!-- GitHub -->
+                        <a href="" target="_blank" id="github-link" class="flex flex-col items-center p-4 sm:p-6 lg:p-8 bg-gray-800/50 rounded-xl hover:bg-gray-700/50 transition-all card-hover group border border-gray-700 backdrop-blur-sm">
+                            <i class="fab fa-github text-3xl sm:text-4xl lg:text-5xl text-gray-300 mb-3 sm:mb-4 group-hover:text-white group-hover:scale-110 transition-all"></i>
+                            <span class="font-semibold text-sm sm:text-base lg:text-lg text-gray-300 group-hover:text-white">GitHub</span>
+                        </a>
+
+                        <!-- LinkedIn -->
+                        <a href="" target="_blank" id="linkedin-link" class="flex flex-col items-center p-4 sm:p-6 lg:p-8 bg-gray-800/50 rounded-xl hover:bg-blue-600/20 transition-all card-hover group border border-gray-700 backdrop-blur-sm">
+                            <i class="fab fa-linkedin text-3xl sm:text-4xl lg:text-5xl text-blue-400 mb-3 sm:mb-4 group-hover:scale-110 transition-all"></i>
+                            <span class="font-semibold text-sm sm:text-base lg:text-lg text-gray-300 group-hover:text-white">LinkedIn</span>
+                        </a>
+
+                        <!-- Codechef -->
+                        <a href=""  target="_blank" id="codechef-link" class="flex flex-col items-center p-4 sm:p-6 lg:p-8 bg-gray-800/50 rounded-xl hover:bg-red-600/20 transition-all card-hover group border border-gray-700 backdrop-blur-sm">
+                            <i class="fas fa-code text-3xl sm:text-4xl lg:text-5xl text-red-400 mb-3 sm:mb-4 group-hover:scale-110 transition-all"></i>
+                            <span class="font-semibold text-sm sm:text-base lg:text-lg text-gray-300 group-hover:text-white">CodeChef</span>
+                        </a>
+
+                        <!-- lc -->
+                        <a href=""  target="_blank" id="leetcode-link" class="flex flex-col items-center p-4 sm:p-6 lg:p-8 bg-gray-800/50 rounded-xl hover:bg-orange-600/20 transition-all card-hover group border border-gray-700 backdrop-blur-sm">
+                            <i class="fas fa-trophy text-3xl sm:text-4xl lg:text-5xl text-orange-400 mb-3 sm:mb-4 group-hover:scale-110 transition-all"></i>
+                            <span class="font-semibold text-sm sm:text-base lg:text-lg text-gray-300 group-hover:text-white">LeetCode</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="py-16 sm:py-20 bg-gray-900">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 sm:mb-16 text-white">Get In Touch</h2>
+                    <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
+                        
+                        <!-- Contact Form -->
+                        <div class="bg-gray-800/50 p-6 sm:p-8 rounded-2xl shadow-xl border border-gray-700 backdrop-blur-sm">
+                            <h3 class="text-xl sm:text-2xl font-semibold mb-6 sm:mb-8 text-white">Send Message</h3>
+                            <form class="space-y-4 sm:space-y-6" action="https://formspree.io/f/myzdqyld" method="POST"   accept-charset="UTF-8">
+                                <div>
+                                    <label class="block text-gray-300 font-medium mb-2 sm:mb-3 text-base sm:text-lg">Name</label>
+                                    <input type="text" name="name" required class="w-full px-3 sm:px-4 py-3 sm:py-4 bg-gray-700/50 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white text-base sm:text-lg backdrop-blur-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-300 font-medium mb-2 sm:mb-3 text-base sm:text-lg">Email</label>
+                                    <input type="email" name="email" required class="w-full px-3 sm:px-4 py-3 sm:py-4 bg-gray-700/50 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white text-base sm:text-lg backdrop-blur-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-300 font-medium mb-2 sm:mb-3 text-base sm:text-lg">Message</label>
+                                    <textarea rows="5" name="message" required class="w-full px-3 sm:px-4 py-3 sm:py-4 bg-gray-700/50 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white text-base sm:text-lg backdrop-blur-sm"></textarea>
+                                </div>
+                                <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg hover:from-blue-600 hover:to-purple-700 transition-all glow-effect">
+                                    <i class="fas fa-paper-plane mr-2"></i>Send Message
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Contact Info -->
+                        <div class="space-y-6 sm:space-y-8">
+                            <div class="bg-gray-800/50 p-6 sm:p-8 rounded-2xl shadow-xl border border-gray-700 backdrop-blur-sm">
+                                <h3 class="text-xl sm:text-2xl font-semibold mb-6 sm:mb-8 text-white">Contact Information</h3>
+                                <div class="space-y-4 sm:space-y-6">
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mr-4 border border-blue-500/30 flex-shrink-0">
+                                            <i class="fas fa-envelope text-blue-400 text-lg sm:text-xl"></i>
+                                        </div>
+                                        <span class="text-gray-300 text-base sm:text-lg" id="contact-email">miravanisri222@gmail.com</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-green-500/20 rounded-lg flex items-center justify-center mr-4 border border-green-500/30 flex-shrink-0">
+                                            <i class="fas fa-map-marker-alt text-green-400 text-lg sm:text-xl"></i>
+                                        </div>
+                                        <span class="text-gray-300 text-base sm:text-lg" id="contact-location">Bengaluru, India</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mr-4 border border-purple-500/30 flex-shrink-0">
+                                            <i class="fas fa-file-download text-purple-400 text-lg sm:text-xl"></i>
+                                        </div>
+                                        <a href="" target="_blank" download="Miravanisri_Resume.pdf" id="contact-resume" class="text-blue-400 hover:text-blue-300 transition-colors text-base sm:text-lg font-medium">Download Resume</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-blue-600/20 to-purple-600/20 border border-blue-500/30 p-6 sm:p-8 rounded-2xl backdrop-blur-sm">
+                                <h4 class="text-lg sm:text-xl font-semibold mb-4 text-white">Let's Build Something Amazing!</h4>
+                                <p class="mb-6 text-gray-300 text-sm sm:text-base">
+                                    I'm always excited about new opportunities and interesting projects. Whether you have a question, want to collaborate, or just want to say hello, feel free to reach out!
+                                </p>
+                                <div class="flex space-x-4">
+                                    <a href="" target="_blank" id="social-linkedin" class="w-8 h-8 sm:w-10 sm:h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors border border-white/20">
+                                        <i class="fab fa-linkedin text-lg sm:text-xl text-blue-400"></i>
+                                    </a>
+                                    <a href="" target="_blank" id="social-github" class="w-8 h-8 sm:w-10 sm:h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors border border-white/20">
+                                        <i class="fab fa-github text-lg sm:text-xl text-gray-300"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Development Projects Page -->
+        <div id="development-page" class="page-content hidden">
+            <section class="py-20 bg-gray-900 min-h-screen">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <!-- Back Button -->
+                    <div class="mb-8">
+                        <button onclick="navigateToHome()" class="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors">
+                            <i class="fas fa-arrow-left mr-2"></i>Back to Home
+                        </button>
+                    </div>
+                    
+                    <!-- Header -->
+                    <div class="text-center mb-16">
+                        <h1 class="text-4xl sm:text-5xl font-bold text-white mb-6">Development Projects</h1>
+                        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                            Full-stack web applications and modern development solutions built with cutting-edge technologies
+                        </p>
+                    </div>
+                    
+                    <!-- Projects Grid -->
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="development-projects-grid">
+                        <!-- Projects will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- GenAI Projects Page -->
+        <div id="genai-page" class="page-content hidden">
+            <section class="py-20 bg-gray-900 min-h-screen">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <!-- Back Button -->
+                    <div class="mb-8">
+                        <button onclick="navigateToHome()" class="inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors">
+                            <i class="fas fa-arrow-left mr-2"></i>Back to Home
+                        </button>
+                    </div>
+                    
+                    <!-- Header -->
+                    <div class="text-center mb-16">
+                        <h1 class="text-4xl sm:text-5xl font-bold text-white mb-6">GenAI Projects</h1>
+                        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                            AI-powered applications, intelligent chatbots, and Deep learning solutions leveraging the latest in artificial intelligence
+                        </p>
+                    </div>
+                    
+                    <!-- Projects Grid -->
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="genai-projects-grid">
+                        <!-- Projects will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 border-t border-gray-700 py-8 sm:py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-base sm:text-lg text-gray-300">&copy; 2024 <span id="footer-name">Your Name</span>. All rights reserved.</p>
+            <p class="text-gray-400 mt-2 text-sm sm:text-base">Built with passion, code, and lots of ☕</p>
+        </div>
+    </footer>
+
+    <script>
+        // Current page state
+        let currentPage = 'home';
+
+        // Initialize the portfolio
+        document.addEventListener('DOMContentLoaded', function() {
+            initializePortfolio();
+            handleURLRouting();
+        });
+
+        // Handle URL routing
+        function handleURLRouting() {
+            const hash = window.location.hash.substring(1);
+            if (hash === 'development' || hash === 'genai') {
+                navigateToProjects(hash);
+            }
+        }
+
+        // Listen for hash changes
+        window.addEventListener('hashchange', handleURLRouting);
+
+        function initializePortfolio() {
+            // Update personal information
+            document.getElementById('nav-name').textContent = portfolioData.personal.name;
+            document.getElementById('hero-name').textContent = portfolioData.personal.name;
+            document.getElementById('hero-title').textContent = portfolioData.personal.title;
+            document.getElementById('hero-tagline').textContent = portfolioData.personal.tagline;
+            document.getElementById('about-text').textContent = portfolioData.personal.aboutText;
+            document.getElementById('contact-email').textContent = portfolioData.personal.email;
+            document.getElementById('contact-location').textContent = portfolioData.personal.location;
+            document.getElementById('footer-name').textContent = portfolioData.personal.name;
+            
+            // Update links
+            document.getElementById('resume-btn').href = portfolioData.personal.resumeLink;
+            document.getElementById('contact-resume').href = portfolioData.personal.resumeLink;
+            document.getElementById('github-link').href = portfolioData.socialLinks.github;
+            document.getElementById('linkedin-link').href = portfolioData.socialLinks.linkedin;
+            document.getElementById('leetcode-link').href = portfolioData.socialLinks.leetcode;
+            document.getElementById('codechef-link').href = portfolioData.socialLinks.codechef;
+            document.getElementById('social-linkedin').href = portfolioData.socialLinks.linkedin;
+            document.getElementById('social-github').href = portfolioData.socialLinks.github;
+            
+            // Update experience
+            document.getElementById('job-position').textContent = portfolioData.experience.position;
+            document.getElementById('company-name').textContent = portfolioData.experience.company;
+            document.getElementById('job-duration').textContent = portfolioData.experience.duration;
+            
+            // Populate responsibilities
+            const responsibilitiesList = document.getElementById('responsibilities-list');
+            responsibilitiesList.innerHTML = portfolioData.experience.responsibilities.map(responsibility => `
+                <li class="flex items-start">
+                    <i class="fas fa-check-circle text-blue-400 mr-3 mt-1 flex-shrink-0"></i>
+                    ${responsibility}
+                </li>
+            `).join('');
+            
+            // Populate skills
+            populateSkills();
+            
+            // Populate projects
+            populateProjectPages();
+        }
+
+        function populateSkills() {
+            const skillCategories = [
+                { id: 'languages-container', skills: portfolioData.skills.languages, colors: ['yellow', 'blue', 'green', 'red', 'purple'] },
+                { id: 'frontend-container', skills: portfolioData.skills.frontend, colors: ['cyan', 'gray', 'green', 'teal', 'blue', 'orange'] },
+                { id: 'backend-container', skills: portfolioData.skills.backend, colors: ['green', 'gray', 'green', 'blue', 'purple'] },
+                { id: 'databases-container', skills: portfolioData.skills.databases, colors: ['green', 'blue', 'orange', 'red', 'yellow'] },
+                { id: 'devops-container', skills: portfolioData.skills.devops, colors: ['gray', 'blue', 'yellow', 'black', 'purple', 'pink'] },
+                { id: 'genai-container', skills: portfolioData.skills.GenAI, colors: ['green', 'blue', 'purple', 'orange', 'pink'] },
+                 { id: 'ai-container', skills: portfolioData.skills.AdvancedAIConcepts, colors: ['green', 'gray', 'teal', 'blue', 'orange'] }
+            ];
+
+            skillCategories.forEach(category => {
+                const container = document.getElementById(category.id);
+                container.innerHTML = category.skills.map((skill, index) => {
+                    const color = category.colors[index % category.colors.length];
+                    const textColor = color === 'black' ? 'white' : `${color}-200`;
+                    const bgColor = color === 'black' ? 'gray-800' : `${color}-500/20`;
+                    const borderColor = color === 'black' ? 'gray-600' : `${color}-500/30`;
+                    
+                    return `
+                        <span class="skill-tag bg-${bgColor} text-${textColor} px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium border border-${borderColor} backdrop-blur-sm">
+                            ${skill}
+                        </span>
+                    `;
+                }).join('');
+            });
+        }
+
+        function populateProjectPages() {
+            // Populate development projects page
+            const devGrid = document.getElementById('development-projects-grid');
+            devGrid.innerHTML = portfolioData.projects.development.map(project => createDetailedProjectCard(project, 'development')).join('');
+            
+            // Populate GenAI projects page
+            const genaiGrid = document.getElementById('genai-projects-grid');
+            genaiGrid.innerHTML = portfolioData.projects.genai.map(project => createDetailedProjectCard(project, 'genai')).join('');
+        }
+
+        function createDetailedProjectCard(project, category) {
+            const accentColor = category === 'development' ? 'blue' : 'purple';
+            
+            return `
+                <div class="bg-gray-800/50 rounded-xl shadow-lg overflow-hidden project-card border border-gray-700 backdrop-blur-sm animate-slide-up">
+                    <!-- 👉 Replace with actual project images -->
+                    <div class="h-48 sm:h-56 bg-gradient-to-br from-${accentColor}-500/20 to-${accentColor === 'blue' ? 'purple' : 'pink'}-600/20 flex items-center justify-center text-${accentColor}-400 text-4xl sm:text-5xl border-b border-gray-700 relative overflow-hidden">
+                        <!-- <i class="fas ${category === 'development' ? 'fa-code' : 'fa-robot'}"></i> -->
+                        <img src="${project.image}" alt="${project.title}" class="h-48 sm:h-56 w-full object-cover"> 
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent">
+                    </div>
+                    </div>
+                    <!-- Alternative: <img src="${project.image}" alt="${project.title}" class="h-48 sm:h-56 w-full object-cover"> -->
+                    
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-4">
+                            <h3 class="text-xl sm:text-2xl font-bold text-white leading-tight">${project.title}</h3>
+                            ${project.featured ? `<span class="bg-${accentColor}-500/20 text-${accentColor}-300 px-2 py-1 rounded-full text-xs font-medium border border-${accentColor}-500/30 ml-2 flex-shrink-0">Featured</span>` : ''}
+                        </div>
+                        
+                        <p class="text-gray-300 mb-6 text-sm sm:text-base leading-relaxed">${project.description}</p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            ${project.tech.map(tech => `
+                                <span class="bg-${accentColor}-500/20 text-${accentColor}-200 px-3 py-1 rounded-full text-xs font-medium border border-${accentColor}-500/30">${tech}</span>
+                            `).join('')}
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <a href="${project.github}" class="flex items-center text-gray-400 hover:text-white transition-colors group" target="_blank">
+                                <i class="fab fa-github text-xl mr-2 group-hover:scale-110 transition-transform"></i>
+                                <span class="text-sm font-medium">Code</span>
+                            </a>
+                            <a href="${project.live}" class="flex items-center text-${accentColor}-400 hover:text-${accentColor}-300 transition-colors group" target="_blank">
+                                <i class="fas fa-external-link-alt text-xl mr-2 group-hover:scale-110 transition-transform"></i>
+                                <span class="text-sm font-medium">Live Demo</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Navigation functions
+        function navigateToProjects(category) {
+            // Update URL
+            window.history.pushState({}, '', `#${category}`);
+            
+            // Hide home page
+            document.getElementById('home-page').classList.add('hidden');
+            
+            // Show appropriate project page
+            if (category === 'development') {
+                document.getElementById('development-page').classList.remove('hidden');
+                document.getElementById('genai-page').classList.add('hidden');
+            } else {
+                document.getElementById('genai-page').classList.remove('hidden');
+                document.getElementById('development-page').classList.add('hidden');
+            }
+            
+            currentPage = category;
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function navigateToHome() {
+            // Update URL
+            window.history.pushState({}, '', '/');
+            
+            // Show home page
+            document.getElementById('home-page').classList.remove('hidden');
+            
+            // Hide project pages
+            document.getElementById('development-page').classList.add('hidden');
+            document.getElementById('genai-page').classList.add('hidden');
+            
+            currentPage = 'home';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Form submission handler
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            alert('Demo Form - Replace this with your actual form handling logic!\n\nIn a real application, you would send this data to your backend server or email service.');
+        }
+
+        // Smooth scrolling for navigation (only on home page)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                
+                // Handle project navigation
+                if (href === '#development' || href === '#genai') {
+                    e.preventDefault();
+                    navigateToProjects(href.substring(1));
+                    return;
+                }
+                
+                // Handle smooth scrolling only on home page
+                if (currentPage === 'home') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                } else {
+                    // Navigate to home first, then scroll
+                    e.preventDefault();
+                    navigateToHome();
+                    setTimeout(() => {
+                        const target = document.querySelector(href);
+                        if (target) {
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }, 100);
+                }
+            });
+        });
+
+        // Navigation scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('shadow-2xl');
+            } else {
+                nav.classList.remove('shadow-2xl');
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuButton = e.target.closest('button[onclick="toggleMobileMenu()"]');
+            
+            if (!menuButton && !mobileMenu.contains(e.target)) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+
+        // Handle browser back/forward buttons
+        window.addEventListener('popstate', function() {
+            handleURLRouting();
+        });
+
+
+  
+
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97ff8e070557c628',t:'MTc1ODAxNzIyNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
